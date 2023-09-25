@@ -4,5 +4,5 @@ namespace WebApi.Interfaces;
 
 public interface IIdentityService
 {
-    Task<ResponseDto> Register(RegisterUserDto registerUserDto);
+    Task<ResponseDto> Register(RegisterUserDto registerUserDto, CancellationToken cancellationToken = default);
 }

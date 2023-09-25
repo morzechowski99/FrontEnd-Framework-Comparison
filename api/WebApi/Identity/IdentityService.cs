@@ -15,7 +15,7 @@ public class IdentityService : IIdentityService
         _userManager = userManager;
     }
 
-    public async Task<ResponseDto> Register(RegisterUserDto registerUserDto)
+    public async Task<ResponseDto> Register(RegisterUserDto registerUserDto, CancellationToken cancellationToken = default)
     {
         if (registerUserDto.Username is null || registerUserDto.Password is null)
             throw new ArgumentException("Username and Password are required", nameof(registerUserDto));
