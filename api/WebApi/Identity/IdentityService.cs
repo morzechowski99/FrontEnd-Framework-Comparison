@@ -22,7 +22,7 @@ public class IdentityService : IIdentityService
 
         var userExists = await _userManager.FindByNameAsync(registerUserDto.Username);
         if (userExists != null)
-            return new ResponseDto { Message = "user name already taken", Status = ResponseStatus.BadRequest };
+            return new ResponseDto { Response = "user name already taken", Status = ResponseStatus.BadRequest };
 
         IdentityUser user = new()
         {
@@ -39,11 +39,11 @@ public class IdentityService : IIdentityService
             {
                 message.Append(e.Description);
             });
-            return new ResponseDto { Status = ResponseStatus.InternalServerError, Message = message.ToString() };
+            return new ResponseDto { Status = ResponseStatus.InternalServerError, Response = message.ToString() };
         }
 
         await _userManager.AddToRoleAsync(user, UserRoles.User);
 
-        return new ResponseDto { Status = ResponseStatus.Created, Message = "User created successfully!" };
+        return new ResponseDto { Status = ResponseStatus.Created, Response = new { Id = user.Id } };
     }
 }

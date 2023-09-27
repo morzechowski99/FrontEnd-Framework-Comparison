@@ -12,7 +12,8 @@ public class RegisterUserDto
     public string? Email { get; set; }
 
     [Required(ErrorMessage = "Password is required")]
-    //TODO: add password validation regex
+    [RegularExpression(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^a-zA-Z\d]).{8,}$", ErrorMessage = "Password should have at least one lower case letter, one upper case letter, one number and one special character")]
+    [MinLength(8)]
     public string? Password { get; set; }
 
     [Required(ErrorMessage = "Password is required")]
