@@ -1,4 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.IdentityModel.Tokens;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
 using System.Text;
 using WebApi.Dto;
 using WebApi.Interfaces;
@@ -9,10 +12,12 @@ namespace WebApi.Identity;
 public class IdentityService : IIdentityService
 {
     private readonly UserManager<IdentityUser> _userManager;
+    private readonly IConfiguration _configuration;
 
-    public IdentityService(UserManager<IdentityUser> userManager)
+    public IdentityService(UserManager<IdentityUser> userManager, IConfiguration configuration)
     {
         _userManager = userManager;
+        _configuration = configuration;
     }
 
     public async Task<ResponseDto> Register(RegisterUserDto registerUserDto, CancellationToken cancellationToken = default)
@@ -45,5 +50,46 @@ public class IdentityService : IIdentityService
         await _userManager.AddToRoleAsync(user, UserRoles.User);
 
         return new ResponseDto { Status = ResponseStatus.Created, Response = new { Id = user.Id } };
+    }
+
+    public async Task<ResponseDto> Login(LoginDto loginDto, CancellationToken cancellationToken = default)
+    {
+        if (loginDto.Username is null || loginDto.Password is null)
+            throw new ArgumentException("Login and password are required", nameof(loginDto));
+        var user = await _userManager.FindByNameAsync(loginDto.Username);
+        if (user is null)
+            return new ResponseDto
+            { Status = ResponseStatus.NotFound, Response = "User with given username does not exists" };
+        if (!await _userManager.CheckPasswordAsync(user, loginDto.Password))
+            return new ResponseDto { Status = ResponseStatus.BadRequest, Response = "Invalid password" };
+        var roles = await _userManager.GetRolesAsync(user);
+
+        var claims = new List<Claim>
+        {
+            new (ClaimTypes.Name, user.UserName!),
+            new (JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
+        };
+
+        claims.AddRange(roles.Select(userRole => new Claim(ClaimTypes.Role, userRole)));
+
+        var token = GetToken(claims);
+        return new ResponseDto
+        {
+            Status = ResponseStatus.Ok,
+            Response = new TokenResponseDto(new DateTimeOffset(token.ValidTo), new JwtSecurityTokenHandler().WriteToken(token))
+        };
+    }
+
+    private JwtSecurityToken GetToken(IEnumerable<Claim> authClaims)
+    {
+        var authSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["JWT:Secret"] ?? string.Empty));
+
+        var token = new JwtSecurityToken(
+            expires: DateTime.Now.AddHours(3),
+            claims: authClaims,
+            signingCredentials: new SigningCredentials(authSigningKey, SecurityAlgorithms.HmacSha256)
+        );
+
+        return token;
     }
 }

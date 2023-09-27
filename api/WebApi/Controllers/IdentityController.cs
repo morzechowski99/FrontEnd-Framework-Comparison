@@ -22,4 +22,12 @@ public class IdentityController : ControllerBase
         var res = await _identityService.Register(registerUserDto);
         return res.Status.GetActionResult(res.Response);
     }
+    
+    [HttpPost("Login")]
+    public async Task<IActionResult> Login(LoginDto loginDto)
+    {
+        if (!ModelState.IsValid) return BadRequest(ModelState);
+        var res = await _identityService.Login(loginDto);
+        return res.Status.GetActionResult(res.Response);
+    }
 }
