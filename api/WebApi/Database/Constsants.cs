@@ -1,6 +1,6 @@
 ﻿namespace WebApi.Database;
 
-public static class Consts
+public static class Constsants
 {
     public static class UserRoles
     {

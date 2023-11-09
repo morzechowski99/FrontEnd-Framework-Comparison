@@ -21,18 +21,15 @@ public sealed class ResponseStatus : SmartEnum<ResponseStatus>
 
     }
 
-    public IActionResult GetActionResult(object? response = null)
+    public IActionResult GetActionResult(object? response = null) => this switch
     {
-        return this switch
-        {
-            var e when e.Equals(Ok) => new OkObjectResult(response),
-            var e when e.Equals(Created) => new CreatedResult("", response),
-            var e when e.Equals(NotFound) => new NotFoundObjectResult(response),
-            var e when e.Equals(BadRequest) => new BadRequestObjectResult(response),
-            var e when e.Equals(InternalServerError) => response != null ?
-                                                        new ObjectResult(response) { StatusCode = StatusCodes.Status500InternalServerError } :
-                                                        new StatusCodeResult(StatusCodes.Status500InternalServerError),
-            _ => new StatusCodeResult(StatusCodes.Status501NotImplemented),
-        };
-    }
+        var e when e.Equals(Ok) => new OkObjectResult(response),
+        var e when e.Equals(Created) => new CreatedResult("", response),
+        var e when e.Equals(NotFound) => new NotFoundObjectResult(response),
+        var e when e.Equals(BadRequest) => new BadRequestObjectResult(response),
+        var e when e.Equals(InternalServerError) => response != null ?
+                                                    new ObjectResult(response) { StatusCode = StatusCodes.Status500InternalServerError } :
+                                                    new StatusCodeResult(StatusCodes.Status500InternalServerError),
+        _ => new StatusCodeResult(StatusCodes.Status501NotImplemented),
+    };
 }

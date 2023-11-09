@@ -15,7 +15,7 @@ public class IdentityController : ControllerBase
         _identityService = identityService;
     }
 
-    [HttpPost("Register")]
+    [HttpPost("register")]
     public async Task<IActionResult> Register(RegisterUserDto registerUserDto)
     {
         if (!ModelState.IsValid) return BadRequest(ModelState);
@@ -23,7 +23,7 @@ public class IdentityController : ControllerBase
         return res.Status.GetActionResult(res.Response);
     }
     
-    [HttpPost("Login")]
+    [HttpPost("login")]
     public async Task<IActionResult> Login(LoginDto loginDto)
     {
         if (!ModelState.IsValid) return BadRequest(ModelState);

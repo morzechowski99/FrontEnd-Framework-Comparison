@@ -5,7 +5,7 @@ using System.Security.Claims;
 using System.Text;
 using WebApi.Dto;
 using WebApi.Interfaces;
-using static WebApi.Database.Consts;
+using static WebApi.Database.Constsants;
 
 namespace WebApi.Identity;
 
