@@ -1,0 +1,25 @@
+﻿@page "/creating-elements"
+@using BlazorFrontEnd.Models
+
+<PageTitle>Creating Elements</PageTitle>
+
+<h3>Creating Elements Performance</h3>
+
+<PersonsList Persons="_persons" />
+
+<button class="btn btn-primary" @onclick="AddPerson">Add row</button>
+
+@code {
+    private readonly List<Person> _persons = new();
+
+    private void AddPerson()
+    {
+        _persons.Add(new Person
+            {
+                DateOfBirth = DateOnly.FromDateTime(DateTime.Now),
+                FirstName = "John",
+                Surname = "Smith",
+                Gender = "male"
+            });
+    }
+}

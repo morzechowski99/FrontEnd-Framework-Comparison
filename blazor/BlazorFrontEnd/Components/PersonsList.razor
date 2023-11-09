@@ -1,0 +1,28 @@
+﻿@using BlazorFrontEnd.Models
+
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">First name</th>
+            <th scope="col">Surname</th>
+            <th scope="col">Gender</th>
+            <th scope="col">Date of birth</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Persons)
+        {
+            <tr>
+                <td>@item.FirstName</td>
+                <td>@item.Surname</td>
+                <td>@item.Gender</td>
+                <td>@item.DateOfBirth</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+@code {
+    [Parameter] public List<Person> Persons { get; set; } = new();
+}
