@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
-using static WebApi.Database.Consts;
+using static WebApi.Database.Constsants;
 
 namespace WebApi.DbInitializer;
 
