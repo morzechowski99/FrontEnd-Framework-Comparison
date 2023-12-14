@@ -1,13 +1,17 @@
-﻿namespace WebApi.Dto;
+﻿using System.Diagnostics.CodeAnalysis;
+
+namespace WebApi.Dto;
 
 public class TokenResponseDto
 {
-    public string Token { get; }
+    [SetsRequiredMembers]
+    public TokenResponseDto(string token, DateTimeOffset expiration)
+    {
+        Token = token;
+        Expiration = expiration;
+    }
+
+    public required string Token { get; init; }
     public DateTimeOffset Expiration { get; }
 
-    public TokenResponseDto(DateTimeOffset expiration, string token)
-    {
-        Expiration = expiration;
-        Token = token;
-    }
 }

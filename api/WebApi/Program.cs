@@ -7,6 +7,9 @@ using WebApi.Database;
 using WebApi.DbInitializer;
 using WebApi.Identity;
 using WebApi.Interfaces;
+using WebApi.Mapper;
+using WebApi.Services;
+using WebApi.Swagger;
 
 var builder = WebApplication.CreateBuilder(args);
 var configuration = builder.Configuration;
@@ -31,9 +34,9 @@ builder.Services.AddAuthentication(options =>
     options.SaveToken = true;
     options.RequireHttpsMetadata = false;
     options.TokenValidationParameters = new TokenValidationParameters()
-    {
-        ValidateIssuer = true,
-        ValidateAudience = true,
+    { 
+        ValidateIssuer = false,
+        ValidateAudience = false,
         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["JWT:Secret"] ?? throw new InvalidOperationException()))
     };
 });
@@ -42,11 +45,13 @@ builder.Services.AddAuthentication(options =>
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwagger();
 
 #region MyServices
 
 builder.Services.AddScoped<IIdentityService, IdentityService>();
+builder.Services.AddScoped<CarMapper>();
+builder.Services.AddScoped<ICarService, CarService>();
 
 #endregion
 

@@ -3,10 +3,11 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace WebApi.Dto;
 
-public class ResponseDto
+public class ResponseDto<T>
 {
-    public object? Response { get; set; }
+    public T? Response { get; set; }
     public required ResponseStatus Status { get; init; }
+    public string? Error { get; init; }
 }
 
 public sealed class ResponseStatus : SmartEnum<ResponseStatus>

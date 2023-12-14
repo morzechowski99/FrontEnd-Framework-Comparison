@@ -20,14 +20,14 @@ public class IdentityService : IIdentityService
         _configuration = configuration;
     }
 
-    public async Task<ResponseDto> Register(RegisterUserDto registerUserDto, CancellationToken cancellationToken = default)
+    public async Task<ResponseDto<RegisterUserResponseDto>> Register(RegisterUserDto registerUserDto, CancellationToken cancellationToken = default)
     {
         if (registerUserDto.Username is null || registerUserDto.Password is null)
             throw new ArgumentException("Username and Password are required", nameof(registerUserDto));
 
         var userExists = await _userManager.FindByNameAsync(registerUserDto.Username);
         if (userExists != null)
-            return new ResponseDto { Response = "user name already taken", Status = ResponseStatus.BadRequest };
+            return new ResponseDto<RegisterUserResponseDto> { Error = "user name already taken", Status = ResponseStatus.BadRequest };
 
         IdentityUser user = new()
         {
@@ -44,24 +44,24 @@ public class IdentityService : IIdentityService
             {
                 message.Append(e.Description);
             });
-            return new ResponseDto { Status = ResponseStatus.InternalServerError, Response = message.ToString() };
+            return new ResponseDto<RegisterUserResponseDto> { Status = ResponseStatus.InternalServerError, Error = message.ToString() };
         }
 
         await _userManager.AddToRoleAsync(user, UserRoles.User);
 
-        return new ResponseDto { Status = ResponseStatus.Created, Response = new { Id = user.Id } };
+        return new ResponseDto<RegisterUserResponseDto> { Status = ResponseStatus.Created, Response = new RegisterUserResponseDto(user.Id) };
     }
 
-    public async Task<ResponseDto> Login(LoginDto loginDto, CancellationToken cancellationToken = default)
+    public async Task<ResponseDto<TokenResponseDto>> Login(LoginDto loginDto, CancellationToken cancellationToken = default)
     {
         if (loginDto.Username is null || loginDto.Password is null)
             throw new ArgumentException("Login and password are required", nameof(loginDto));
         var user = await _userManager.FindByNameAsync(loginDto.Username);
         if (user is null)
-            return new ResponseDto
-            { Status = ResponseStatus.NotFound, Response = "User with given username does not exists" };
+            return new ResponseDto<TokenResponseDto>
+            { Status = ResponseStatus.NotFound, Error = "User with given username does not exists" };
         if (!await _userManager.CheckPasswordAsync(user, loginDto.Password))
-            return new ResponseDto { Status = ResponseStatus.BadRequest, Response = "Invalid password" };
+            return new ResponseDto<TokenResponseDto> { Status = ResponseStatus.BadRequest, Error = "Invalid password" };
         var roles = await _userManager.GetRolesAsync(user);
 
         var claims = new List<Claim>
@@ -73,10 +73,10 @@ public class IdentityService : IIdentityService
         claims.AddRange(roles.Select(userRole => new Claim(ClaimTypes.Role, userRole)));
 
         var token = GetToken(claims);
-        return new ResponseDto
+        return new ResponseDto<TokenResponseDto>
         {
             Status = ResponseStatus.Ok,
-            Response = new TokenResponseDto(new DateTimeOffset(token.ValidTo), new JwtSecurityTokenHandler().WriteToken(token))
+            Response = new TokenResponseDto(new JwtSecurityTokenHandler().WriteToken(token), new DateTimeOffset(token.ValidTo))
         };
     }
 
