@@ -26,7 +26,7 @@ public class IdentityController : ControllerBase
     /// <response code="400">Invalid request</response>
     [HttpPost("register")]
     [ProducesResponseType(typeof(ResponseDto<RegisterUserDto>), StatusCodes.Status201Created)]
-    [ProducesResponseType(typeof(Dictionary<string, string[]>), StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(typeof(SerializableError), StatusCodes.Status400BadRequest)]
     public async Task<IActionResult> Register(RegisterUserDto registerUserDto)
     {
         if (!ModelState.IsValid) return BadRequest(ModelState);
@@ -43,7 +43,7 @@ public class IdentityController : ControllerBase
     /// <response code="400">Invalid request</response>
     [HttpPost("login")]
     [ProducesResponseType(typeof(ResponseDto<TokenResponseDto>), StatusCodes.Status201Created)]
-    [ProducesResponseType(typeof(Dictionary<string, string[]>), StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(typeof(SerializableError), StatusCodes.Status400BadRequest)]
     public async Task<IActionResult> Login(LoginDto loginDto)
     {
         if (!ModelState.IsValid) return BadRequest(ModelState);

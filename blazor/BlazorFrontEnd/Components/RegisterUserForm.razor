@@ -1,0 +1,39 @@
+﻿<div>
+    <EditForm Model="Model" OnValidSubmit="@Register" FormName="RegisterForm">
+        <div class="row mb-2">
+            <DataAnnotationsValidator/>
+            <ValidationSummary/>
+            <div class="col-md-6 mb-2">
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <InputText class="form-control" id="username" @bind-Value="Model!.Username"/>
+                    <ValidationMessage class="text-danger" For="() => Model!.Username"/>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="email">Email address</label>
+                    <input type="email" class="form-control" id="email" @bind-value="Model!.Email"/>
+                    <ValidationMessage class="text-danger" For="() => Model!.Email"/>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" class="form-control" id="password" @bind-value="Model!.Password" />
+                    <ValidationMessage class="text-danger" For="() => Model!.Password" />
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="passwordComfirm">Confirm password</label>
+                    <input type="password" class="form-control" id="passwordComfirm" @bind-value="Model!.PasswordConfirm" />
+                    <ValidationMessage class="text-danger" For="() => Model!.PasswordConfirm" />
+                </div>
+            </div>
+        </div>
+        <div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+    </EditForm>
+</div>

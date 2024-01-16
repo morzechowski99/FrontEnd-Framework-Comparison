@@ -1,4 +1,6 @@
 using BlazorFrontEnd.CarApi;
+using BlazorFrontEnd.Services;
+using BlazorFrontEnd.Services.Interfaces;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 
@@ -21,6 +23,7 @@ public class Program
             .AddHttpClient("CarApi", client => client.BaseAddress = new Uri(carApiUrl));
 
         builder.Services.AddScoped(sp => new CarApiClient(carApiUrl, sp.GetRequiredService<IHttpClientFactory>().CreateClient("CarApi")));
+        builder.Services.AddScoped<IJavaScriptService, JavaScriptService>();
 
         await builder.Build().RunAsync();
     }

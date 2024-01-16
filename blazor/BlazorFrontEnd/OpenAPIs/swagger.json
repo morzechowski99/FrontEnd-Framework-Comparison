@@ -31,12 +31,7 @@
               "application/json": {
                 "schema": {
                   "type": "object",
-                  "additionalProperties": {
-                    "type": "array",
-                    "items": {
-                      "type": "string"
-                    }
-                  }
+                  "additionalProperties": { }
                 }
               }
             }
@@ -88,12 +83,7 @@
               "application/json": {
                 "schema": {
                   "type": "object",
-                  "additionalProperties": {
-                    "type": "array",
-                    "items": {
-                      "type": "string"
-                    }
-                  }
+                  "additionalProperties": { }
                 }
               }
             }
@@ -147,12 +137,7 @@
               "application/json": {
                 "schema": {
                   "type": "object",
-                  "additionalProperties": {
-                    "type": "array",
-                    "items": {
-                      "type": "string"
-                    }
-                  }
+                  "additionalProperties": { }
                 }
               }
             }
@@ -168,7 +153,7 @@
             }
           },
           "404": {
-            "description": "Car with given id does not exists",
+            "description": "Car with given id does not exist",
             "content": {
               "application/json": {
                 "schema": {
@@ -234,12 +219,7 @@
               "application/json": {
                 "schema": {
                   "type": "object",
-                  "additionalProperties": {
-                    "type": "array",
-                    "items": {
-                      "type": "string"
-                    }
-                  }
+                  "additionalProperties": { }
                 }
               }
             }
@@ -255,7 +235,7 @@
             }
           },
           "404": {
-            "description": "Car with given id does not exists",
+            "description": "Car with given id does not exist",
             "content": {
               "application/json": {
                 "schema": {
@@ -294,12 +274,7 @@
               "application/json": {
                 "schema": {
                   "type": "object",
-                  "additionalProperties": {
-                    "type": "array",
-                    "items": {
-                      "type": "string"
-                    }
-                  }
+                  "additionalProperties": { }
                 }
               }
             }
@@ -370,12 +345,7 @@
               "application/json": {
                 "schema": {
                   "type": "object",
-                  "additionalProperties": {
-                    "type": "array",
-                    "items": {
-                      "type": "string"
-                    }
-                  }
+                  "additionalProperties": { }
                 }
               }
             }
@@ -426,12 +396,7 @@
               "application/json": {
                 "schema": {
                   "type": "object",
-                  "additionalProperties": {
-                    "type": "array",
-                    "items": {
-                      "type": "string"
-                    }
-                  }
+                  "additionalProperties": { }
                 }
               }
             }

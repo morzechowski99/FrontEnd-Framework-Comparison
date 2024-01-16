@@ -27,7 +27,7 @@ public class CarsController : ControllerBase
     /// <response code="401">Unauthorized</response>
     [HttpGet]
     [ProducesResponseType(typeof(IEnumerable<CarItemDto>), StatusCodes.Status200OK)]
-    [ProducesResponseType(typeof(Dictionary<string, string[]>), StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(typeof(SerializableError), StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     public async Task<IActionResult> Get() => Ok(await _carService.Get());
 
@@ -39,10 +39,10 @@ public class CarsController : ControllerBase
     /// <response code="200">Car with given id</response>
     /// <response code="400">Invalid request</response>
     /// <response code="401">Unauthorized</response>
-    /// <response code="404">Car with given id does not exists</response>
+    /// <response code="404">Car with given id does not exist</response>
     [HttpGet("{id:guid}")]
     [ProducesResponseType(typeof(CarItemDto), StatusCodes.Status200OK)]
-    [ProducesResponseType(typeof(Dictionary<string, string[]>), StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(typeof(SerializableError), StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(typeof(string), StatusCodes.Status404NotFound)]
     public async Task<IActionResult> GetById(Guid? id)
@@ -67,7 +67,7 @@ public class CarsController : ControllerBase
     /// <response code="401">Unauthorized</response>
     [HttpPost]
     [ProducesResponseType(StatusCodes.Status201Created)]
-    [ProducesResponseType(typeof(Dictionary<string, string[]>), StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(typeof(SerializableError), StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     public async Task<IActionResult> Create(CreateUpdateCarDto carDto)
     {
@@ -88,10 +88,10 @@ public class CarsController : ControllerBase
     /// <response code="200">Car updated</response>
     /// <response code="400">Invalid request</response>
     /// <response code="401">Unauthorized</response>
-    /// <response code="404">Car with given id does not exists</response>
+    /// <response code="404">Car with given id does not exist</response>
     [HttpPut("{id:guid}")]
     [ProducesResponseType(typeof(CarItemDto), StatusCodes.Status200OK)]
-    [ProducesResponseType(typeof(Dictionary<string, string[]>), StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(typeof(SerializableError), StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(typeof(string), StatusCodes.Status404NotFound)]
     public async Task<IActionResult> Update(CreateUpdateCarDto carDto, Guid? id)
@@ -118,7 +118,7 @@ public class CarsController : ControllerBase
     /// <response code="404">Car with given id does not exists</response>
     [HttpDelete("{id:guid}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
-    [ProducesResponseType(typeof(Dictionary<string, string[]>), StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(typeof(SerializableError), StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(typeof(string), StatusCodes.Status404NotFound)]
     public async Task<IActionResult> Delete(Guid? id)
