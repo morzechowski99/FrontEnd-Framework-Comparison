@@ -20,7 +20,7 @@ public partial class RegisterUserForm : ComponentBase
         {
             var res = await CarApiClient.RegisterAsync(Model);
             if (string.IsNullOrEmpty(res?.Error))
-                NavigationManager.NavigateTo("/login");
+                NavigationManager.NavigateTo("/log-in");
             else
                 await JavaScriptService.Alert(res.Error);
         }

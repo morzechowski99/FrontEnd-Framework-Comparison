@@ -380,12 +380,12 @@
           }
         },
         "responses": {
-          "201": {
-            "description": "Created",
+          "200": {
+            "description": "User logged in",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/TokenResponseDtoResponseDto"
+                  "$ref": "#/components/schemas/TokenResponseDto"
                 }
               }
             }
@@ -400,9 +400,6 @@
                 }
               }
             }
-          },
-          "200": {
-            "description": "User logged in"
           }
         }
       }
@@ -599,22 +596,6 @@
           "expiration": {
             "type": "string",
             "format": "date-time"
-          }
-        },
-        "additionalProperties": false
-      },
-      "TokenResponseDtoResponseDto": {
-        "type": "object",
-        "properties": {
-          "response": {
-            "$ref": "#/components/schemas/TokenResponseDto"
-          },
-          "status": {
-            "$ref": "#/components/schemas/ResponseStatus"
-          },
-          "error": {
-            "type": "string",
-            "nullable": true
           }
         },
         "additionalProperties": false

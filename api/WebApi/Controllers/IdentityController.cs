@@ -42,7 +42,7 @@ public class IdentityController : ControllerBase
     /// <response code="200">User logged in</response>
     /// <response code="400">Invalid request</response>
     [HttpPost("login")]
-    [ProducesResponseType(typeof(ResponseDto<TokenResponseDto>), StatusCodes.Status201Created)]
+    [ProducesResponseType(typeof(TokenResponseDto), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(SerializableError), StatusCodes.Status400BadRequest)]
     public async Task<IActionResult> Login(LoginDto loginDto)
     {

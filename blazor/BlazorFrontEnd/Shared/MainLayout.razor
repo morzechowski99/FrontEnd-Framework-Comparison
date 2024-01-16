@@ -7,7 +7,15 @@
 
     <main>
         <div class="top-row px-4">
-            <NavLink href="register">Register</NavLink>
+            <AuthorizeView>
+                <Authorized>
+                    <NavLink href="log-out">Log out</NavLink>
+                </Authorized>
+                <NotAuthorized>
+                    <NavLink href="register">Register</NavLink>
+                    <NavLink href="log-in">Log in</NavLink>
+                </NotAuthorized>
+            </AuthorizeView>
         </div>
 
         <article class="content px-4">
