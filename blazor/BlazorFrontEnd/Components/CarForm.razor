@@ -1,0 +1,40 @@
+﻿<div>
+    <EditForm Model="Model" OnValidSubmit="@Create" FormName="CarForm">
+        <div class="row">
+            <DataAnnotationsValidator />
+            <ValidationSummary />
+            <div class="col-md-6 mb-2">
+                <div class="form-group">
+                    <label for="brand">Brand</label>
+                    <InputText class="form-control" id="brand" @bind-Value="Model!.Brand" />
+                    <ValidationMessage class="text-danger" For="() => Model!.Brand" />
+                </div>
+                <div class="form-group">
+                    <label for="model">Model</label>
+                    <InputText class="form-control" id="model" @bind-Value="Model!.Model" />
+                    <ValidationMessage class="text-danger" For="() => Model!.Model" />
+                </div>
+                <div class="form-group">
+                    <label for="power">Power</label>
+                    <InputNumber class="form-control" id="power" @bind-Value="Model!.Power" />
+                    <ValidationMessage class="text-danger" For="() => Model!.Power" />
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="leap-capacity">Engine Capacity</label>
+                    <InputText class="form-control" id="leap-capacity" @bind-Value="Model!.LeapCapacityString" />
+                    <ValidationMessage class="text-danger" For="() => Model!.LeapCapacity" />
+                </div>
+                <div class="form-group">
+                    <label for="year">Year</label>
+                    <InputDate class="form-control" id="year" @bind-Value="Model!.ManufacturedDate" />
+                    <ValidationMessage class="text-danger" For="() => Model!.ManufacturedDate" />
+                </div>
+            </div>
+        </div>
+        <div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+    </EditForm>
+</div>

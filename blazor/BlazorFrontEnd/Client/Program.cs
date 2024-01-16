@@ -1,20 +1,27 @@
-using BlazorFrontEnd;
+using BlazorFrontEnd.CarApi;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 
-namespace BlazorFrontEnd
+namespace BlazorFrontEnd.Client;
+
+public class Program
 {
-    public class Program
+    protected Program() { }
+
+    public static async Task Main(string[] args)
     {
-        public static async Task Main(string[] args)
-        {
-            var builder = WebAssemblyHostBuilder.CreateDefault(args);
-            builder.RootComponents.Add<App>("#app");
-            builder.RootComponents.Add<HeadOutlet>("head::after");
+        var builder = WebAssemblyHostBuilder.CreateDefault(args);
+        builder.RootComponents.Add<App>("#app");
+        builder.RootComponents.Add<HeadOutlet>("head::after");
 
-            builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
+        var configuration = builder.Configuration;
+        var carApiUrl = configuration.GetRequiredSection("CarApiSettings")["Url"] ??
+                        throw new InvalidOperationException();
+        builder.Services
+            .AddHttpClient("CarApi", client => client.BaseAddress = new Uri(carApiUrl));
 
-            await builder.Build().RunAsync();
-        }
+        builder.Services.AddScoped(sp => new CarApiClient(carApiUrl, sp.GetRequiredService<IHttpClientFactory>().CreateClient("CarApi")));
+
+        await builder.Build().RunAsync();
     }
 }

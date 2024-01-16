@@ -14,6 +14,7 @@ using WebApi.Swagger;
 var builder = WebApplication.CreateBuilder(args);
 var configuration = builder.Configuration;
 
+builder.Services.AddHttpLogging(o => { });
 // For Entity Framework
 builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(configuration.GetConnectionString("FrameworkComparisonConnectionString")));
 
@@ -46,6 +47,7 @@ builder.Services.AddAuthentication(options =>
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwagger();
+builder.Services.AddCors(x => x.AddDefaultPolicy(y => y.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod()));
 
 #region MyServices
 
@@ -63,7 +65,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-
+app.UseHttpLogging();
+app.UseCors();
 // Authentication & Authorization
 app.UseAuthentication();
 app.UseAuthorization();
@@ -75,4 +78,5 @@ using (var scope = app.Services.CreateScope())
     var services = scope.ServiceProvider;
     await DbInitializer.InitDb(services.GetService<RoleManager<IdentityRole>>());
 }
+
 app.Run();
