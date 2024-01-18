@@ -1,6 +1,7 @@
 ﻿using Blazored.LocalStorage;
 using BlazorFrontEnd.Authentication;
 using BlazorFrontEnd.CarApi;
+using BlazorFrontEnd.Services.Interfaces;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
 
@@ -14,6 +15,7 @@ public partial class LoginUserForm : ComponentBase
     [Inject] public NavigationManager NavigationManager { get; set; } = null!;
     [Inject] public ILocalStorageService LocalStorageService { get; set; } = null!;
     [Inject] public AuthenticationStateProvider AuthenticationStateProvider { get; set; } = null!;
+    [Inject] public IJavaScriptService JavaScriptService { get; set; } = null!;
 
     protected override void OnInitialized() => Model ??= new LoginDto();
 
@@ -33,6 +35,7 @@ public partial class LoginUserForm : ComponentBase
         }
         catch (ApiException e)
         {
+            await JavaScriptService.Alert(e.Response);
         }
     }
 }

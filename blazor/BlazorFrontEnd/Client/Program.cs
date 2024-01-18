@@ -38,9 +38,10 @@ public class Program
                 }
             });
 
-        builder.Services.AddScoped(sp => new CarApiClient(carApiUrl, sp.GetRequiredService<IHttpClientFactory>().CreateClient("CarApi")));
+        builder.Services.AddTransient(sp => new CarApiClient(carApiUrl, sp.GetRequiredService<IHttpClientFactory>().CreateClient("CarApi")));
         builder.Services.AddScoped<IJavaScriptService, JavaScriptService>();
         builder.Services.AddScoped<AuthenticationStateProvider, CustomAuthStateProvider>();
+        builder.Services.AddScoped<IRefreshingService, RefreshingService>();
         builder.Services.AddAuthorizationCore();
 
         await builder.Build().RunAsync();

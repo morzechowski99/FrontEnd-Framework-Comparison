@@ -24,11 +24,15 @@
                 <span class="oi oi-plus" aria-hidden="true"></span> Creating Elements
             </NavLink>
         </div>
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="formAndServer">
-                <span class="oi oi-monitor" aria-hidden="true"></span> Form and Server
-            </NavLink>
-        </div>
+        <AuthorizeView>
+            <Authorized>
+                <div class="nav-item px-3">
+                    <NavLink class="nav-link" href="formAndServer">
+                        <span class="oi oi-monitor" aria-hidden="true"></span> Form and Server
+                    </NavLink>
+                </div>
+            </Authorized>
+        </AuthorizeView>
     </nav>
 </div>
 

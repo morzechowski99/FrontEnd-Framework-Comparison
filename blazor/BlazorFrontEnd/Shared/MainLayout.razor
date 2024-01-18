@@ -1,4 +1,8 @@
-﻿@inherits LayoutComponentBase
+﻿@using Blazored.LocalStorage
+@using BlazorFrontEnd.Authentication
+@inherits LayoutComponentBase
+@inject ILocalStorageService LocalStorage
+@inject AuthenticationStateProvider AuthenticationStateProvider
 
 <div class="page">
     <div class="sidebar">
@@ -9,7 +13,8 @@
         <div class="top-row px-4">
             <AuthorizeView>
                 <Authorized>
-                    <NavLink href="log-out">Log out</NavLink>
+                    <span>Hello @context.User.Identity?.Name</span>
+                    <a href="" @onclick="@LogOut" @onclick:preventDefault>Log out</a>
                 </Authorized>
                 <NotAuthorized>
                     <NavLink href="register">Register</NavLink>
@@ -23,3 +28,13 @@
         </article>
     </main>
 </div>
+
+@code {
+
+    private async Task LogOut()
+    {
+        await LocalStorage.RemoveItemAsync(AuthenticationConstants.TOKEN_KEY);
+        await AuthenticationStateProvider.GetAuthenticationStateAsync();
+    }
+
+}
