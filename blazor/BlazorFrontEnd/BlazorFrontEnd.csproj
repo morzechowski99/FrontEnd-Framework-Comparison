@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.BlazorWebAssembly">
+﻿<Project Sdk="Microsoft.NET.Sdk.BlazorWebAssembly">
 
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
@@ -27,6 +27,15 @@
     <OpenApiReference Include="OpenAPIs\swagger.json" CodeGenerator="NSwagCSharp" ClassName="CarApiClient" Namespace="BlazorFrontEnd.CarApi">
       <SourceUri>https://localhost:7146/swagger/v1/swagger.json</SourceUri>
     </OpenApiReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\BlazorFrontEnd.Calculator\BlazorFrontEnd.Calculator.csproj" />
+  </ItemGroup>
+
+  <!--lazy loan calculator-->
+  <ItemGroup>
+    <BlazorWebAssemblyLazyLoad Include="BlazorFrontEnd.Calculator.wasm"/>
   </ItemGroup>
 
 </Project>

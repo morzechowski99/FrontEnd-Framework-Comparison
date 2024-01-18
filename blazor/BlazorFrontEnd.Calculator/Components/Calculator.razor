@@ -1,0 +1,40 @@
+﻿@using Microsoft.AspNetCore.Components.Forms
+
+<div class="row mb-2">
+    <div class="col-md-3">
+        <InputNumber @bind-Value="_calculator.Number1" class="form-control" />
+    </div>
+    <div class="col-md-1 text-center"><h3>+</h3></div>
+    <div class="col-md-3">
+        <InputNumber @bind-Value="_calculator.Number2" class="form-control" />
+    </div>
+    <div class="col-md-1 text-center"><h3>=</h3></div>
+    <div class="col-md-1 text-center"><h3>@_result</h3></div>
+</div>
+<div>
+    <button class="btn btn-primary m-2" disabled="@CanNotAdd" @onclick="Add">Add</button>
+    <button class="btn btn-danger m-2" @onclick="Reset">Reset</button>
+</div>
+
+@code {
+    private readonly BlazorFrontEnd.Calculator.Calculator _calculator = new();
+    private bool CanNotAdd => !_calculator.CanAdd;
+    private int? _result = null;
+
+    private void Add()
+    {
+        _result = _calculator.GetResult();
+    }
+
+    private void ResetResult()
+    {
+        _result = null;
+    }
+
+    private void Reset()
+    {
+        _result = null;
+        _calculator.Reset();
+    }
+
+}
