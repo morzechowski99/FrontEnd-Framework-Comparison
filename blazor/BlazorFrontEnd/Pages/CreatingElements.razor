@@ -11,14 +11,14 @@
 <button class="btn btn-primary" @onclick="() => Render(10000)">Render 10000</button>
 <button class="btn btn-danger" @onclick="ClearTable">Clear</button>
 
-<PersonsList Persons="_persons" />
+<PeopleList Persons="_people" />
 
 @code {
-    private List<Person> _persons = new();
-    private readonly List<Person> _persons100;
-    private readonly List<Person> _persons1000;
-    private readonly List<Person> _persons10000;
-    private readonly List<Person> _personsEmpty = new();
+    private List<Person> _people = new();
+    private readonly List<Person> _people100;
+    private readonly List<Person> _people1000;
+    private readonly List<Person> _people10000;
+    private readonly List<Person> _peopleEmpty = new();
     private readonly Person _prototype = new()
         {
             DateOfBirth = DateOnly.FromDateTime(DateTime.Now),
@@ -29,22 +29,22 @@
 
     public CreatingElements()
     {
-        _persons100 = new List<Person>();
+        _people100 = new List<Person>();
         for (var i = 0; i < 100; i++)
-            _persons100.Add(new Person(_prototype));
+            _people100.Add(new Person(_prototype));
 
-        _persons1000 = new List<Person>();
+        _people1000 = new List<Person>();
         for (var i = 0; i < 1000; i++)
-            _persons1000.Add(new Person(_prototype));
+            _people1000.Add(new Person(_prototype));
 
-        _persons10000 = new List<Person>();
+        _people10000 = new List<Person>();
         for (var i = 0; i < 10000; i++)
-            _persons10000.Add(new Person(_prototype));
+            _people10000.Add(new Person(_prototype));
     }
 
     private void AddPerson()
     {
-        _persons.Add(new Person
+        _people.Add(new Person
             {
                 DateOfBirth = DateOnly.FromDateTime(DateTime.Now),
                 FirstName = "John",
@@ -55,18 +55,18 @@
 
     private void Render(int count)
     {
-        _persons = count switch
+        _people = count switch
         {
-            100 => _persons100,
-            1000 => _persons1000,
-            10000 => _persons10000,
+            100 => _people100,
+            1000 => _people1000,
+            10000 => _people10000,
             _ => throw new ArgumentException("Invalid count", nameof(count))
             };
     }
 
     private void ClearTable()
     {
-        _personsEmpty.Clear();
-        _persons = _personsEmpty;
+        _peopleEmpty.Clear();
+        _people = _peopleEmpty;
     }
 }

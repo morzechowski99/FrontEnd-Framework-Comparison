@@ -2,6 +2,7 @@ import { paths } from "@/config";
 import { ModuleRoute } from "@/shared/types/config";
 import Home from "./Home";
 import Counter from "./Counter";
+import CreatingElements from "./CreatingElements";
 
 const routes: ModuleRoute[] = [
    {
@@ -12,6 +13,11 @@ const routes: ModuleRoute[] = [
    {
       path: paths.counter,
       Component: () => Counter(),
+      public: true,
+   },
+   {
+      path: paths.creatingElements,
+      Component: () => CreatingElements(),
       public: true,
    },
 ];

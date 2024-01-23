@@ -48,13 +48,13 @@ const NavMenu = () => {
                      Counter
                   </Link>
                </div>
-               {/* <div className="nav-item px-3">
-                  <NavLink className="nav-link" href="creating-elements">
+               <div className="nav-item px-3">
+                  <Link className="nav-link" to={paths.creatingElements}>
                      <span className="oi oi-plus" aria-hidden="true"></span>{" "}
                      Creating Elements
-                  </NavLink>
+                  </Link>
                </div>
-               <div className="nav-item px-3">
+               {/*<div className="nav-item px-3">
                   <NavLink className="nav-link" href="calculator">
                      <span
                         className="oi oi-calculator"
