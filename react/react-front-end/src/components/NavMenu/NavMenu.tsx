@@ -14,9 +14,9 @@ const NavMenu = () => {
       <>
          <div className="nav-top-row ps-3 navbar navbar-dark">
             <div className="container-fluid">
-               <a className="navbar-brand" href="">
+               <Link className="navbar-brand" to={paths.home}>
                   ReactFrontEnd
-               </a>
+               </Link>
                <button
                   title="Navigation menu"
                   className="navbar-toggler"
@@ -42,13 +42,13 @@ const NavMenu = () => {
                      Home
                   </Link>
                </div>
-               {/* <div className="nav-item px-3">
-                  <NavLink className="nav-link" href="counter">
-                     <span className="oi oi-plus" aria-hidden="true"></span>{" "}
-                     Counter
-                  </NavLink>
-               </div>
                <div className="nav-item px-3">
+                  <Link className="nav-link" to={paths.counter}>
+                     <span className="oi oi-plus" aria-hidden="true"></span>
+                     Counter
+                  </Link>
+               </div>
+               {/* <div className="nav-item px-3">
                   <NavLink className="nav-link" href="creating-elements">
                      <span className="oi oi-plus" aria-hidden="true"></span>{" "}
                      Creating Elements
