@@ -1,5 +1,7 @@
 import { useState } from "react";
 import "./NavMenu.css";
+import { Link } from "react-router-dom";
+import { paths } from "@/config";
 
 const NavMenu = () => {
    const [collapseNavMenu, setCollapseNavMenu] = useState(false);
@@ -31,14 +33,14 @@ const NavMenu = () => {
          >
             <nav className="flex-column">
                <div className="nav-item px-3">
-                  <a className="nav-link" href="">
+                  <Link className="nav-link" to={paths.home}>
                      <span
                         className="oi oi-home"
                         style={{ color: "white" }}
                         aria-hidden="true"
                      ></span>
                      Home
-                  </a>
+                  </Link>
                </div>
                {/* <div className="nav-item px-3">
                   <NavLink className="nav-link" href="counter">
