@@ -1,0 +1,52 @@
+﻿@using System.Reflection
+@using BlazorFrontEnd.Services.Interfaces
+@using Microsoft.AspNetCore.Components.WebAssembly.Services
+@inject LazyAssemblyLoader AssemblyLoader
+@inject IJavaScriptService JavaScriptService
+
+<CascadingAuthenticationState>
+    <Router AppAssembly="@typeof(App).Assembly"
+            AdditionalAssemblies="@_lazyLoadedAssemblies"
+            OnNavigateAsync="@OnNavigateAsync">
+        <Found Context="routeData">
+            <AuthorizeRouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)">
+                <NotAuthorized>
+                    <Redirect RedirectUrl="log-in" />
+                </NotAuthorized>
+            </AuthorizeRouteView>
+            <FocusOnNavigate RouteData="@routeData" Selector="h1" />
+        </Found>
+        <Navigating>
+            <div style="padding:20px;">
+                <p>Loading the requested page&hellip;</p>
+            </div>
+        </Navigating>
+        <NotFound>
+            <PageTitle>Not found</PageTitle>
+            <LayoutView Layout="@typeof(MainLayout)">
+                <p role="alert">Sorry, there's nothing at this address.</p>
+            </LayoutView>
+        </NotFound>
+    </Router>
+</CascadingAuthenticationState>
+
+@code {
+    private readonly List<Assembly> _lazyLoadedAssemblies = [];
+
+    private async Task OnNavigateAsync(NavigationContext args)
+    {
+        try
+        {
+            if (args.Path == "calculator")
+            {
+                var assemblies = await AssemblyLoader.LoadAssembliesAsync(
+                    new[] { "BlazorFrontEnd.Calculator.wasm" });
+                _lazyLoadedAssemblies.AddRange(assemblies);
+            }
+        }
+        catch (Exception ex)
+        {
+            await JavaScriptService.Alert(ex.Message);
+        }
+    }
+}

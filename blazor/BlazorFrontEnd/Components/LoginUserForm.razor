@@ -1,0 +1,29 @@
+﻿<dvi>
+    <EditForm Model="Model" OnValidSubmit="@Login" FormName="RegisterForm">
+        <div>
+            <DataAnnotationsValidator />
+            <ValidationSummary />
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <InputText class="form-control" id="username" @bind-Value="Model!.Username" />
+                    <ValidationMessage class="text-danger" For="() => Model!.Username" />
+                </div>
+            </div>
+        </div>
+        <div class="row mb-2">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" class="form-control" id="password" @bind-value="Model!.Password" />
+                    <ValidationMessage class="text-danger" For="() => Model!.Password" />
+                </div>
+            </div>
+        </div>
+        <div>
+            <button type="submit" class="btn btn-primary">Log in</button>
+        </div>
+    </EditForm>
+</dvi>

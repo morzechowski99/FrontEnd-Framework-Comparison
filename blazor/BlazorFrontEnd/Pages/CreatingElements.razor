@@ -1,0 +1,72 @@
+﻿@page "/creating-elements"
+@using BlazorFrontEnd.Models
+
+<PageTitle>Creating Elements</PageTitle>
+
+<h3>Creating Elements Performance</h3>
+
+<button class="btn btn-primary" @onclick="AddPerson">Add row</button>
+<button class="btn btn-primary" @onclick="() => Render(100)">Render 100</button>
+<button class="btn btn-primary" @onclick="() => Render(1000)">Render 1000</button>
+<button class="btn btn-primary" @onclick="() => Render(10000)">Render 10000</button>
+<button class="btn btn-danger" @onclick="ClearTable">Clear</button>
+
+<PersonsList Persons="_persons" />
+
+@code {
+    private List<Person> _persons = new();
+    private readonly List<Person> _persons100;
+    private readonly List<Person> _persons1000;
+    private readonly List<Person> _persons10000;
+    private readonly List<Person> _personsEmpty = new();
+    private readonly Person _prototype = new()
+        {
+            DateOfBirth = DateOnly.FromDateTime(DateTime.Now),
+            FirstName = "John",
+            Surname = "Smith",
+            Gender = "male"
+        };
+
+    public CreatingElements()
+    {
+        _persons100 = new List<Person>();
+        for (var i = 0; i < 100; i++)
+            _persons100.Add(new Person(_prototype));
+
+        _persons1000 = new List<Person>();
+        for (var i = 0; i < 1000; i++)
+            _persons1000.Add(new Person(_prototype));
+
+        _persons10000 = new List<Person>();
+        for (var i = 0; i < 10000; i++)
+            _persons10000.Add(new Person(_prototype));
+    }
+
+    private void AddPerson()
+    {
+        _persons.Add(new Person
+            {
+                DateOfBirth = DateOnly.FromDateTime(DateTime.Now),
+                FirstName = "John",
+                Surname = "Smith",
+                Gender = "male"
+            });
+    }
+
+    private void Render(int count)
+    {
+        _persons = count switch
+        {
+            100 => _persons100,
+            1000 => _persons1000,
+            10000 => _persons10000,
+            _ => throw new ArgumentException("Invalid count", nameof(count))
+            };
+    }
+
+    private void ClearTable()
+    {
+        _personsEmpty.Clear();
+        _persons = _personsEmpty;
+    }
+}

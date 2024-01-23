@@ -1,0 +1,48 @@
+﻿@using BlazorFrontEnd.CarApi
+@using BlazorFrontEnd.Services.Interfaces
+@inject CarApiClient CarApi
+@inject IJavaScriptService JavaScriptService
+@inject IRefreshingService RefreshingService
+<div class="mt-2">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Brand</th>
+                <th scope="col">Model</th>
+                <th scope="col">ManufacturedDate</th>
+                <th scope="col">Power</th>
+                <th scope="col">Leap Capacity</th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var car in Cars)
+            {
+                <tr>
+                    <th scope="row">@car.Id</th>
+                    <td>@car.Brand</td>
+                    <td>@car.Model</td>
+                    <td>@car.ManufacturedDate</td>
+                    <td>@car.Power</td>
+                    <td>@car.LeapCapacity</td>
+                    <td><button class="btn btn-danger" @onclick="@(() => Delete(car.Id))">Delete</button> </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+@code {
+    [Parameter, EditorRequired] public List<CarItemDto> Cars { get; set; } = null!;
+
+    private async Task Delete(Guid carId)
+    {
+        if (await JavaScriptService.Confirm("Are you sure you want to delete this car?"))
+        {
+            await CarApi.CarsDELETEAsync(carId);
+            await RefreshingService.CallRequestRefresh();
+        }
+    }
+
+}

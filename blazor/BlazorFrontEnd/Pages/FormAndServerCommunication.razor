@@ -1,0 +1,32 @@
+﻿@page "/formAndServer"
+@attribute [Authorize]
+@using BlazorFrontEnd.CarApi
+@using BlazorFrontEnd.Services.Interfaces
+@using Microsoft.AspNetCore.Authorization
+@inject IRefreshingService RefreshingService
+@inject CarApiClient CarApi
+
+<PageTitle>Forms and Server Communication</PageTitle>
+
+<h3>Forms and Server Communication</h3>
+
+<CarForm />
+<CarList Cars="Cars" />
+@code {
+    private List<CarItemDto> Cars { get; set; } = [];
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        await GetCars();
+        RefreshingService.SetRefreshRequested(GetCars);
+        await base.OnInitializedAsync();
+    }
+
+    private async Task GetCars()
+    {
+        Cars = (await CarApi.CarsAllAsync()).ToList();
+        StateHasChanged();
+    }
+
+}
