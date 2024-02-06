@@ -31,7 +31,7 @@ public class IdentityController : ControllerBase
     {
         if (!ModelState.IsValid) return BadRequest(ModelState);
         var res = await _identityService.Register(registerUserDto);
-        return res.Status.GetActionResult(res.Response);
+        return res.Status.GetActionResult(res);
     }
 
     /// <summary>
