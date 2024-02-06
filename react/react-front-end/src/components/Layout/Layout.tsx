@@ -12,7 +12,10 @@ const Layout = ({ children }: PropsWithChildren) => {
          </div>
          <main>
             <div className="top-row px-4">
-               <Link to={paths.register}>Register</Link>
+               <Link style={{ marginRight: 10 }} to={paths.register}>
+                  Register
+               </Link>
+               <Link to={paths.login}>Log in</Link>
             </div>
             <article className="content px-4">{children}</article>
          </main>

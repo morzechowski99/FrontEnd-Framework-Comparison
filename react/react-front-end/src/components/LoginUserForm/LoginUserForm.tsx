@@ -1,10 +1,10 @@
 import { Form, Formik } from "formik";
-import { useForm } from "./RegisterUserForm.utils";
+import { useForm } from "./LoginUserForm.utils";
 import ValidationSummary from "../ValidationSummary";
 import ValidationMessage from "../ValidationMessage";
-import { RegisterUserDto } from "@/shared/services/cars";
+import { LoginDto } from "@/shared/services/cars";
 
-const RegisterUserForm = () => {
+const LoginUserForm = () => {
    const formProps = useForm();
    return (
       <div>
@@ -15,9 +15,11 @@ const RegisterUserForm = () => {
          >
             {({ values, isSubmitting, isValid, handleBlur, handleChange }) => (
                <Form>
-                  <div className="row mb-2">
+                  <div>
                      <ValidationSummary />
-                     <div className="col-md-6 mb-2">
+                  </div>
+                  <div className="row">
+                     <div className="col-md-4">
                         <div className="form-group">
                            <label htmlFor="username">Username</label>
                            <input
@@ -28,52 +30,24 @@ const RegisterUserForm = () => {
                               onChange={handleChange}
                               onBlur={handleBlur}
                            />
-                           <ValidationMessage<RegisterUserDto> property="username" />
+                           <ValidationMessage<LoginDto> property="username" />
                         </div>
                      </div>
-                     <div className="col-md-6">
-                        <div className="form-group">
-                           <label htmlFor="email">Email address</label>
-                           <input
-                              type="email"
-                              className="form-control"
-                              id="email"
-                              name="email"
-                              value={values.email}
-                              onChange={handleChange}
-                              onBlur={handleBlur}
-                           />
-                           <ValidationMessage property="email" />
-                        </div>
-                     </div>
-                     <div className="col-md-6">
+                  </div>
+                  <div className="row mb-2">
+                     <div className="col-md-4">
                         <div className="form-group">
                            <label htmlFor="password">Password</label>
                            <input
-                              type="password"
                               className="form-control"
                               id="password"
                               name="password"
-                              onChange={handleChange}
-                              onBlur={handleBlur}
-                           />
-                           <ValidationMessage property="password" />
-                        </div>
-                     </div>
-                     <div className="col-md-6">
-                        <div className="form-group">
-                           <label htmlFor="passwordConfirm">
-                              Confirm password
-                           </label>
-                           <input
                               type="password"
-                              className="form-control"
-                              id="passwordConfirm"
-                              name="passwordConfirm"
+                              value={values.password}
                               onChange={handleChange}
                               onBlur={handleBlur}
                            />
-                           <ValidationMessage property="passwordConfirm" />
+                           <ValidationMessage<LoginDto> property="password" />
                         </div>
                      </div>
                   </div>
@@ -83,7 +57,7 @@ const RegisterUserForm = () => {
                         className="btn btn-primary"
                         disabled={isSubmitting || !isValid}
                      >
-                        Submit
+                        Log in
                      </button>
                   </div>
                </Form>
@@ -93,4 +67,4 @@ const RegisterUserForm = () => {
    );
 };
 
-export default RegisterUserForm;
+export default LoginUserForm;

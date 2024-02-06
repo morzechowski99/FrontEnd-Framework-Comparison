@@ -4,6 +4,7 @@ import Home from "./Home";
 import Counter from "./Counter";
 import CreatingElements from "./CreatingElements";
 import Register from "./Register";
+import Login from "./Login";
 
 const routes: ModuleRoute[] = [
    {
@@ -24,6 +25,11 @@ const routes: ModuleRoute[] = [
    {
       path: paths.register,
       Component: () => Register(),
+      public: true,
+   },
+   {
+      path: paths.login,
+      Component: () => Login(),
       public: true,
    },
 ];
