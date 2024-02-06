@@ -1,5 +1,7 @@
 import { paths } from "@/config";
+import AuthContext from "@/shared/auth/AuthContext";
 import { ApiError, IdentityService, LoginDto } from "@/shared/services/cars";
+import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { Schema, object, string } from "yup";
 
@@ -17,13 +19,18 @@ export const useValidationSchema = (): Schema<LoginDto> => {
 
 export const useOnSubmit = () => {
    const navigate = useNavigate();
+   const { login } = useContext(AuthContext);
    return async (values: LoginDto) => {
       try {
-         const res = await IdentityService.postApiIdentityLogin({
+         const { token } = await IdentityService.postApiIdentityLogin({
             requestBody: values,
          });
-         alert(res.token);
-         navigate(paths.home);
+         if (token) {
+            login(token);
+            navigate(paths.home);
+         } else {
+            alert("Invalid username or password");
+         }
       } catch (error) {
          const apiError = error as ApiError;
 
