@@ -9,6 +9,7 @@ const AuthProvider = ({ children }: PropsWithChildren) => {
       undefined
    );
    const [firstRender, setFirstRender] = useState(true);
+   const [initializing, setInitializing] = useState(true);
    const authContextProps = useMemo(
       () => ({
          isAuthenticated: isAuthenticated,
@@ -23,8 +24,9 @@ const AuthProvider = ({ children }: PropsWithChildren) => {
             Auth.logout();
          },
          userData: userData,
+         initializing: initializing,
       }),
-      [isAuthenticated, userData]
+      [initializing, isAuthenticated, userData]
    );
 
    useEffect(() => {
@@ -32,6 +34,7 @@ const AuthProvider = ({ children }: PropsWithChildren) => {
       if (token && firstRender) {
          authContextProps.login(token);
          setFirstRender(false);
+         setInitializing(false);
       }
    }, [firstRender, authContextProps]);
    return (

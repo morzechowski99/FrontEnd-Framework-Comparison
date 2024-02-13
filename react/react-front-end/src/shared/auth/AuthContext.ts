@@ -6,12 +6,14 @@ export type AuthContextProps = {
    login: (token: string) => void;
    logout: () => void;
    userData?: SignedIdUser;
+   initializing: boolean;
 };
 
 const AuthContext = createContext<AuthContextProps>({
    isAuthenticated: false,
    login: () => {},
    logout: () => {},
+   initializing: false,
 });
 
 export default AuthContext;
