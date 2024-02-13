@@ -5,6 +5,7 @@ import Counter from "./Counter";
 import CreatingElements from "./CreatingElements";
 import Register from "./Register";
 import Login from "./Login";
+import FormAndServerCommunication from "./FormAndServerCommunication";
 
 const routes: ModuleRoute[] = [
    {
@@ -31,6 +32,11 @@ const routes: ModuleRoute[] = [
       path: paths.login,
       Component: () => Login(),
       public: true,
+   },
+   {
+      path: paths.serverCommunication,
+      Component: () => FormAndServerCommunication(),
+      public: false,
    },
 ];
 

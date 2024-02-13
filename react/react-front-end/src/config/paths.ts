@@ -4,6 +4,7 @@ const paths = {
    creatingElements: "/creating-elements",
    register: "/register",
    login: "/login",
+   serverCommunication: "/server-communication",
 };
 
 export default paths;
