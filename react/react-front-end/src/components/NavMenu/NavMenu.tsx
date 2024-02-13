@@ -55,6 +55,15 @@ const NavMenu = () => {
                      Creating Elements
                   </Link>
                </div>
+               <div className="nav-item px-3">
+                  <Link className="nav-link" to={paths.calculator}>
+                     <span
+                        className="oi oi-calculator"
+                        aria-hidden="true"
+                     ></span>
+                     Calculator - lazy loading
+                  </Link>
+               </div>
                <AuthorizeView
                   authorized={
                      <div className="nav-item px-3">
@@ -68,16 +77,6 @@ const NavMenu = () => {
                      </div>
                   }
                />
-               {/*<div className="nav-item px-3">
-                  <NavLink className="nav-link" href="calculator">
-                     <span
-                        className="oi oi-calculator"
-                        aria-hidden="true"
-                     ></span>{" "}
-                     Calculator - lazy loading
-                  </NavLink>
-               </div>
-               */}
             </nav>
          </div>
       </>

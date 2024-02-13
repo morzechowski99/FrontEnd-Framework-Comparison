@@ -6,6 +6,7 @@ import CreatingElements from "./CreatingElements";
 import Register from "./Register";
 import Login from "./Login";
 import FormAndServerCommunication from "./FormAndServerCommunication";
+import Calculator from "./Calculator";
 
 const routes: ModuleRoute[] = [
    {
@@ -37,6 +38,11 @@ const routes: ModuleRoute[] = [
       path: paths.serverCommunication,
       Component: () => FormAndServerCommunication(),
       public: false,
+   },
+   {
+      path: paths.calculator,
+      Component: () => Calculator(),
+      public: true,
    },
 ];
 

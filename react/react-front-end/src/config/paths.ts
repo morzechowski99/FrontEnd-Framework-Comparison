@@ -5,6 +5,7 @@ const paths = {
    register: "/register",
    login: "/login",
    serverCommunication: "/server-communication",
+   calculator: "/calculator",
 };
 
 export default paths;
