@@ -1,10 +1,21 @@
-import { CarItemDto } from "@/shared/services/cars";
+import { CarItemDto, CarsService } from "@/shared/services/cars";
+import { useCallback } from "react";
 
 interface CarListProps {
    cars: CarItemDto[];
+   onDeleted?: () => void;
 }
 
-const CarList = ({ cars }: CarListProps) => {
+const CarList = ({ cars, onDeleted }: CarListProps) => {
+   const deleteCar = useCallback(
+      async (id?: string) => {
+         if (id && confirm("Are you sure you want to delete this car?")) {
+            await CarsService.deleteApiCars({ id: id });
+            onDeleted && onDeleted();
+         }
+      },
+      [onDeleted]
+   );
    return (
       <div className="mt-2">
          <table className="table table-striped">
@@ -29,7 +40,10 @@ const CarList = ({ cars }: CarListProps) => {
                      <td>{car.power}</td>
                      <td>{car.leapCapacity}</td>
                      <td>
-                        <button className="btn btn-danger" onClick={() => {}}>
+                        <button
+                           className="btn btn-danger"
+                           onClick={() => deleteCar(car.id)}
+                        >
                            Delete
                         </button>
                      </td>

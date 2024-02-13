@@ -19,7 +19,7 @@ const FormAndServerCommunication = () => {
       <>
          <h3>Forms and Server Communication</h3>
          <CarForm onCreated={getCars} />
-         <CarList cars={cars} />
+         <CarList cars={cars} onDeleted={getCars} />
       </>
    );
 };
