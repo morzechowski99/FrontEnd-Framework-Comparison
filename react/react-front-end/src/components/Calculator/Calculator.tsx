@@ -15,7 +15,7 @@ const Calculator = () => {
    const canNotAdd = useMemo(() => !(number1 && number2), [number1, number2]);
    const Add = () => {
       if (number1 && number2)
-         setNumbers({ ...numbers, result: +number1 + +number2 });
+         setNumbers((prev) => ({ ...prev, result: +number1 + +number2 }));
    };
    const Reset = () => {
       setNumbers({ number1: "", number2: "" });
@@ -29,7 +29,10 @@ const Calculator = () => {
                   className="form-control"
                   value={number1}
                   onChange={(e) =>
-                     setNumbers({ ...numbers, number1: +e.target.value })
+                     setNumbers((prev) => ({
+                        ...prev,
+                        number1: +e.target.value,
+                     }))
                   }
                />
             </div>
@@ -42,7 +45,10 @@ const Calculator = () => {
                   className="form-control"
                   value={number2}
                   onChange={(e) =>
-                     setNumbers({ ...numbers, number2: +e.target.value })
+                     setNumbers((prev) => ({
+                        ...prev,
+                        number2: +e.target.value,
+                     }))
                   }
                />
             </div>
