@@ -33,7 +33,7 @@
     <ProjectReference Include="..\BlazorFrontEnd.Calculator\BlazorFrontEnd.Calculator.csproj" />
   </ItemGroup>
 
-  <!--lazy loan calculator-->
+  <!--lazy load calculator-->
   <ItemGroup>
     <BlazorWebAssemblyLazyLoad Include="BlazorFrontEnd.Calculator.wasm"/>
   </ItemGroup>

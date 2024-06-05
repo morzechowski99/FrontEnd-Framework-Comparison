@@ -29,8 +29,8 @@ export const useOnSubmit = (onCreated: () => void) => {
       try {
          const res = await CarsService.postApiCars({
             requestBody: {
-               manufacturedDate: values.manufacturedDate as string,
                ...values,
+               manufacturedDate: values.manufacturedDate as string,
             },
          });
          if (res.error) alert(res.error);
