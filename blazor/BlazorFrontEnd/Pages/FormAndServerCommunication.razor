@@ -5,6 +5,7 @@
 @using Microsoft.AspNetCore.Authorization
 @inject IRefreshingService RefreshingService
 @inject CarApiClient CarApi
+@inject IJavaScriptService Js
 
 <PageTitle>Forms and Server Communication</PageTitle>
 
@@ -25,7 +26,10 @@
 
     private async Task GetCars()
     {
-        Cars = (await CarApi.CarsAllAsync()).ToList();
+        await Js.ConsoleTime("get cars");
+        var res = await CarApi.CarsAllAsync();
+        await Js.ConsoleTimeEnd("get cars");
+        Cars = res.ToList();
         StateHasChanged();
     }
 

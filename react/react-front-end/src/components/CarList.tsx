@@ -10,7 +10,9 @@ const CarList = ({ cars, onDeleted }: CarListProps) => {
    const deleteCar = useCallback(
       async (id?: string) => {
          if (id && confirm("Are you sure you want to delete this car?")) {
+            console.time("deleteApiCars");
             await CarsService.deleteApiCars({ id: id });
+            console.timeEnd("deleteApiCars");
             onDeleted && onDeleted();
          }
       },

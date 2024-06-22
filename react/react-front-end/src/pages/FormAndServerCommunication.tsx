@@ -7,7 +7,9 @@ const FormAndServerCommunication = () => {
    const [cars, setCars] = useState<CarItemDto[]>([]);
 
    const getCars = useCallback(async () => {
+      console.time("getCars");
       const cars = await CarsService.getApiCars();
+      console.timeEnd("getCars");
       setCars(cars);
    }, []);
 

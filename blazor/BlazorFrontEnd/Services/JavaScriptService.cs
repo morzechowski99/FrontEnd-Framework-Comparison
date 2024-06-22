@@ -21,4 +21,14 @@ public class JavaScriptService : IJavaScriptService
     {
         return await _jsRuntime.InvokeAsync<bool>("confirm", message);
     }
+
+    public async Task ConsoleTime(string label)
+    {
+        await _jsRuntime.InvokeVoidAsync("console.time", label);
+    }
+
+    public async Task ConsoleTimeEnd(string label)
+    {
+        await _jsRuntime.InvokeVoidAsync("console.timeEnd", label);
+    }
 }

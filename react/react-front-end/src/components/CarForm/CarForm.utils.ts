@@ -27,12 +27,14 @@ export const useValidationSchema = (): Schema<CarFormItemProps> => {
 export const useOnSubmit = (onCreated: () => void) => {
    return async (values: CarFormItemProps) => {
       try {
+         console.time("postApiCars");
          const res = await CarsService.postApiCars({
             requestBody: {
                ...values,
                manufacturedDate: values.manufacturedDate as string,
             },
          });
+         console.timeEnd("postApiCars");
          if (res.error) alert(res.error);
          else onCreated();
       } catch (error) {
